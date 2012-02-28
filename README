@@ -3,7 +3,8 @@ Excess Heat Indices
 
 I’ve been working for Geoff Morgan (Geoff.Morgan@ncahs.health.nsw.gov.au) who is finalising a consultancy with NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith Dear. In additional sensitivity analyses we also developed material related to a newly proposed heatwave metric.
 
-The RNW file contains R code that you can execute and produce the calculations and the graphs that get compiled into that pdf file. 
+The reports/EHIs_transformations_doc.Rnw file contains R code that you can execute and produce the calculations and the graphs that get compiled into that pdf file. 
+These R codes are also held separately in the run directory if you prefer.
 
 Some Background
 ---------------
