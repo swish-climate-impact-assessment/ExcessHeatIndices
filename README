@@ -1,14 +1,16 @@
 Excess Heat Indices	
 -------------------
 
-I’ve been working for Geoff Morgan (Geoff.Morgan@ncahs.health.nsw.gov.au) who is finalising a consultancy with NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith. I have talked with Geoff (and Guy – offline) and Geoff has expressed interest in sharing, however I think I’ll leave it up to him to decide what to share as he is project leader. I did get his OK to share some material I have developed related to a newly proposed heatwave metric.
+I’ve been working for Geoff Morgan (Geoff.Morgan@ncahs.health.nsw.gov.au) who is finalising a consultancy with NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith Dear. In additional sensitivity analyses we also developed material related to a newly proposed heatwave metric.
 
 The RNW file contains R code that you can execute and produce the calculations and the graphs that get compiled into that pdf file. 
 
 Some Background
 ---------------
 
-We were asked by our NSW health collaborators to investigate some heatwave indices developed by the BoM. NSW BoM like the look of two they have come up with, but the SA BoM office has a new definition (by John Nairn) they like so the BoM is discussing how they want to construct a national definition. Apparently BoM central HQ like John's definition the most (not published in a journal yet, the best ref is http://www.cawcr.gov.au/events/modelling_workshops/workshop_2009/papers/NAIRN.pdf). So Geoff and I were invited to a meeting with NSW Health, NSW BoM and John Nairn. John started off by telling where his definition was at in terms of endorsement by a BoM central HQ imprimatur. However, he then said something like 'and then PriceWaterhouseCoopers came along and decided to define yet another index'. Apparently the matter is now no longer with the BoM but another arm of federal gov (maybe PM and C?) and John is co-chairing a committee to finalise THE national definition for this summer. I mentioned all this to Tony McMichael who responded that he'd heard of a PWC heatwave/mortality report from July, but had not seen it, then Tony asked Neville Nicholls if he knew of the report, and he hadn't. I then also asked Geoff again and he said while he'd subsequently heard the rumours from some others he still didn't know the status of either the PWC mortality report of the national definition of a heatwave. 
+We were asked by our NSW health collaborators to investigate some heatwave indices developed by the BoM. NSW BoM like the look of three indices invented at the SA BoM office  (by John Nairn) - they want to construct a national definition. Apparently BoM central HQ like John's definition the most (not published in a journal yet, the best ref is http://www.cawcr.gov.au/events/modelling_workshops/workshop_2009/papers/NAIRN.pdf). 
+
+John has worked with PriceWaterhouseCoopers to apply the heatwave in a recent report http://www.pwc.com.au/industry/government/assets/extreme-heat-events-nov11.pdf
 
 Ivan Hanigan
 2012-02-29
