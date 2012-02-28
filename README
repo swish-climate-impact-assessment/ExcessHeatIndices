@@ -1,5 +1,6 @@
 Excess Heat Indices	
 -------------------
+
 I’ve been working for Geoff Morgan (Geoff.Morgan@ncahs.health.nsw.gov.au) who is finalising a consultancy with NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith. I have talked with Geoff (and Guy – offline) and Geoff has expressed interest in sharing, however I think I’ll leave it up to him to decide what to share as he is project leader. I did get his OK to share some material I have developed related to a newly proposed heatwave metric.
 
 The RNW file contains R code that you can execute and produce the calculations and the graphs that get compiled into that pdf file. 
