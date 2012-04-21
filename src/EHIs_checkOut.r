@@ -1,41 +1,4 @@
 ###############################################################################
-# newnode summary
-	
- 
- qc <- subset(analyte, dates >= as.Date('2009-1-1') & dates <= as.Date('2009-2-28'))
- png(paste('reports/Figure1.png', sep = ''))
- par(mfrow=c(2,2))
- with(qc, 
-  plot(dates, temp_lag0,type = 'l', ylim = c(0,100), main = stnlabl)
-  )
- with(qc, 
-  lines(dates, temp_movav,col = 'red')
-  )
- with(qc, 
-  lines(dates, temp30_movav,col = 'orange')
-  )
- segments(as.Date('2009-1-1') , seq(0, 50,5) , as.Date('2009-2-28'),  seq(0, 50,5))  
- segments(as.Date('2009-1-1') , T95 , as.Date('2009-2-28'),  T95, col = 'blue', lwd = 2)  
- legend('topright',c('temp','3movav','30movav', 'T95'), lty = 1, col = c('black','red','orange', 'blue'), bg = 'white')  
- 
- with(qc, 
-  plot(dates, EHIaccl,type = 'l', ylim = c(-15,20), main = stnlabl, ylab = 'EHIs')
-  )
- with(qc, 
-  lines(dates, EHIsig,col = 'grey')
-  )
- segments(as.Date('2009-1-1') , seq(-15, 20,5) , as.Date('2009-2-28'),  seq(-15, 20,5))  
- legend('topright',c('EHIaccl','EHIsig'), lty = 1, col = c('black','grey'), bg = 'white')  
- 
- with(qc, 
-  plot(dates, EHF,type = 'l', ylim = c(-150,200), main = stnlabl)
-  )
- segments(as.Date('2009-1-1') , seq(-150, 200,50) , as.Date('2009-2-28'),  seq(-150, 200,50))  
-  
- dev.off()
- 
- 
-###############################################################################
 # newnode choose station
 	
  

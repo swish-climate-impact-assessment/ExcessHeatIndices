@@ -2,6 +2,7 @@
 \usepackage{cite} 
 \usepackage{hyperref} 
 \usepackage{longtable} 
+\usepackage{verbatim} 
 \usepackage{rotating}
 \begin{document}
 \title{Extreme Heat Indices} 
@@ -49,6 +50,7 @@ The paper by Nairn et al proposed 3 new Extreme Heat Indices (EHIs) we were aske
  Nairn et al also integrate the indices:  In one method they count the consecutive days in which the index is positive.
  They also sum the daily values of EHF across entire heat waves (TASK defined how?  Number of consecutive days over the threshold used in Adelaide by others?  Figures 1-4 suggest it is not the 5 over 35 or 3 over 40 as they integrate from 7 Jan to 18 Feb 2009  \url{http://www.bom.gov.au/announcements/media_releases/sa/20100115_First_Heatwave_SA_Jan.shtml}).  Only positive daily values of the EHF contribute to the integration, negative values are treated as if they were zero.  This gives a good insight into the intensity of a heatwave, however unless we define a threshold to start and stop counting we cant do this (we could use periods where the EHI is continously positive?).
  
+\clearpage
 
 \subsection{The R code that produced this report}
 I support the philosophy of reproducible research \url{http://aje.oxfordjournals.org/content/163/9/783}, and where possible I provide data and code in the statistical software R that will allow analyses to be reproduced.  This document is prepared automatically from the associated RNW file.  If you do not have access to the RNW file please contact me.
@@ -78,6 +80,10 @@ I support the philosophy of reproducible research \url{http://aje.oxfordjournals
   
  
 @
+\clearpage
+
+%% \subsection{tools}
+
 <<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
 ######################
 #tools,  tools
@@ -93,6 +99,7 @@ I support the philosophy of reproducible research \url{http://aje.oxfordjournals
  if (!require(plyr)) install.packages('plyr', repos='http://cran.csiro.au'); require(plyr)
  
 @
+\clearpage
 
 \subsection{load}
 The BoM data are used as a test case \url{http://www.bom.gov.au/climate/change/hqsites/}.  Metadata are available at \url{http://www.bom.gov.au/climate/change/hqsites/about-hq-site-data.shtml#format}.
@@ -126,6 +133,7 @@ The BoM data are used as a test case \url{http://www.bom.gov.au/climate/change/h
  
  
 @
+\clearpage
 
 \subsection{qc graph}
 A plot of the raw data is shwon in Figure \ref{fig:023090adelaide.png}.
@@ -149,6 +157,7 @@ A plot of the raw data is shwon in Figure \ref{fig:023090adelaide.png}.
 \caption{023090adelaide.png}
 \label{fig:023090adelaide.png}
 \end{figure}
+\clearpage
 \clearpage
 
 \subsection{EHI{accl}}
@@ -174,7 +183,7 @@ A plot of the raw data is shwon in Figure \ref{fig:023090adelaide.png}.
  nlags <- 32 
  # lag0 is not needed
  for(lagi in 1:nlags){
-  # lagi <- 1
+ 	# lagi <- 1
  	exposuresList <- c(exposuresList, gsub('lag0',paste('lag', lagi,sep=''), exposuresList[1]))
  	analyte[,(ncol(analyte)+1)] <- Lag(analyte[,exposuresList[1]],lagi)
  	}
@@ -223,6 +232,7 @@ A plot of the raw data is shwon in Figure \ref{fig:023090adelaide.png}.
 \label{fig:023090adelaidemovavs.png}
 \end{figure}
 \clearpage
+\clearpage
 
 \subsection{EHI{sig}}
 $$EHI{sig} = (Ti + T{i}-1 + T{i}-2)/3 - T{95}$$
@@ -267,6 +277,7 @@ $$EHI{sig} = (Ti + T{i}-1 + T{i}-2)/3 - T{95}$$
  
  
 @
+\clearpage
 
 \subsection{EHFS}
 
@@ -284,6 +295,7 @@ $$EHI{sig} = (Ti + T{i}-1 + T{i}-2)/3 - T{95}$$
  
  
 @
+\clearpage
 
 \section{Check the results}
 
@@ -296,6 +308,7 @@ $$EHI{sig} = (Ti + T{i}-1 + T{i}-2)/3 - T{95}$$
  
  
 @
+\clearpage
 
 \subsection{summary}
 
@@ -304,7 +317,7 @@ Figure \ref{fig:Figure1.png} shows station-based results for Adelaide in January
  
 <<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
 ######################
-#checkOut,  summary
+#do,  summary
 ######################
       
 
@@ -350,6 +363,7 @@ Figure \ref{fig:Figure1.png} shows station-based results for Adelaide in January
 \caption{Figure1.png}
 \label{fig:Figure1.png}
 \end{figure}
+\clearpage
 \clearpage
 
 \subsection{Ask BoM what they think is a good threshold}
@@ -413,6 +427,7 @@ We asked Richard Broome to ask BoM about a threshold.  He reported: It seems the
 \label{fig:checkEHFagainstQuantiles.png}
 \end{figure}
 \clearpage
+\clearpage
 
 \subsection{How would the Adelaide heatwave look}
 
@@ -444,6 +459,7 @@ The exemplar heatwave that Nairn et al use in their document is shown again in F
 \caption{Figure1withHeatwaves.png}
 \label{fig:Figure1withHeatwaves.png}
 \end{figure}
+\clearpage
 \clearpage
 
 \subsection{Propose a threshold method based on Hutchinson}
@@ -536,6 +552,7 @@ I propose we follow the drought index method of Professor Mike Hutchinson descri
  
  
 @
+\clearpage
 
 \subsection{Add this to the summary}
 
@@ -596,6 +613,7 @@ with(qc,
 \caption{thresholds.png}
 \label{fig:thresholds.png}
 \end{figure}
+\clearpage
 \clearpage
 
 \subsection{Make an R function to do the work}
@@ -709,9 +727,14 @@ with(qc,
   }
  
 @
+\clearpage
 
 \subsection{check function works with any station}
 In the associated R script you can see the code to use the high quality temperature BoM station data from \url{http://www.bom.gov.au/climate/change/hqsites/} to assess the R function I have written to calculate the indices.  I grew up in West Wyalong (lat -33.916667, lon 147.216667) so will use this as a test case.  I remember some extreme heat when I was in primary school (1986-1988).
+\clearpage
+
+%% \subsection{choose station}
+
 <<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
 ######################
 #checkOut,  choose station
@@ -762,6 +785,10 @@ In the associated R script you can see the code to use the high quality temperat
   
  
 @
+\clearpage
+
+%% \subsection{download data}
+
 <<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
 ######################
 #checkOut,  download data
@@ -789,6 +816,10 @@ In the associated R script you can see the code to use the high quality temperat
 
  
 @
+\clearpage
+
+%% \subsection{run function}
+
 <<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
 ######################
 #checkOut,  run function
@@ -819,6 +850,7 @@ In the associated R script you can see the code to use the high quality temperat
         
  
 @
+\clearpage
 
 \subsection{Check output of running function}
 Use the BoM definition of extreme heatwave at 80 percentile and also compare with our proposal to use the consecutive number of days. Lets assume that day 1 of the EHIsig being positive is not a heatwave (although this is a bit strict because it is already a three day moving average figure so does incorporate extended duration of heat), but the second and subsequent days are.  The plot in \ref{fig:WestWyalongHeatwaves19861988.png} matches my recollection.
@@ -847,6 +879,7 @@ Use the BoM definition of extreme heatwave at 80 percentile and also compare wit
 \label{fig:WestWyalongHeatwaves19861988.png}
 \end{figure}
 \clearpage
+\clearpage
 
 \subsection{ Discuss issues identified with the EHI indexes for further thought}
 
@@ -858,6 +891,29 @@ Use the BoM definition of extreme heatwave at 80 percentile and also compare wit
  \end{itemize}
  
  
+\clearpage
+
+\subsection{go}
+
+<<eval=FALSE,echo=FALSE,keep.source=TRUE>>=	
+######################
+#go,  go
+######################
+      
+
+  source(dir('src',pattern='tools',full.names=T))
+  source(dir('src',pattern='load.r',full.names=T))
+  source(dir('src',pattern='checkIn.r',full.names=T))
+  source(dir('src',pattern='do.r',full.names=T))
+  source(dir('src',pattern='checkOut.r',full.names=T))
+  source(dir('src',pattern='do_thresholds.r',full.names=T))
+  
+@
+\clearpage
+
+%% \section{The end}
+
+\clearpage
 
 
 
