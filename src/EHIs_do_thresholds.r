@@ -49,7 +49,7 @@
   )
  segments(as.Date('2009-1-1') , seq(-150, 200,50) , as.Date('2009-2-28'),  seq(-150, 200,50))  
  segments(as.Date('2009-1-1') , 1, as.Date('2009-2-28'),  1, col = 'orange', lwd = 2)  
- segments(as.Date('2009-1-1') , EHF80, as.Date('2009-2-28'),  EHF80, col = 'red', lwd = 2)  
+ #segments(as.Date('2009-1-1') , EHF80, as.Date('2009-2-28'),  EHF80, col = 'red', lwd = 2)  
  legend('topright',c('extreme heatwave','heatwave'), lty = 1, lwd = 2, col = c('red','orange'), bg = 'white')  
  
  dev.off()
