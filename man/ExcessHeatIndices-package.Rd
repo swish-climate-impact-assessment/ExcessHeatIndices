@@ -1,41 +1,41 @@
 
 \name{ExcessHeatIndices-package}
 \alias{ExcessHeatIndices-package}
-\alias{ExcessHeatIndices}
+    \alias{ExcessHeatIndices}
 \docType{package}
-\title{
-What the package does (short line)
-~~ package title ~~
+    \title{
+Excess Heat Indices 
+    ~~ package title ~~
 }
-\description{
-More about what it does (maybe more than one line)
-~~ A concise (1-5 lines) description of the package ~~
+    \description{
+Excess Heat Indices for Human Health research
+    ~~ A concise (1-5 lines) description of the package ~~
 }
-\details{
+    \details{
 \tabular{ll}{
-Package: \tab ExcessHeatIndices\cr
+    Package: \tab ExcessHeatIndices\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+    Version: \tab 1.0\cr
 Date: \tab 2013-01-30\cr
-License: \tab What license is it under?\cr
+    License: \tab GPL2\cr
 }
-~~ An overview of how to use the package, including the most important functions ~~
+    ~~ An overview of how to use the package, including the most important functions ~~
 }
-\author{
-Who wrote it
-
-Maintainer: Who to complain to <yourfault@somewhere.net>
-~~ The author and/or maintainer of the package ~~
+    \author{
+ivanhanigan
+    
+Maintainer: Who to complain to  ivan.hanigan@anu.edu.au 
+    ~~ The author and/or maintainer of the package ~~
 }
-\references{
+    \references{
 ~~ Literature or other references for background information ~~
-}
-~~ Optionally other standard keywords, one per line, from file KEYWORDS in the R documentation directory ~~
-\keyword{ package }
+    }
+
+    \keyword{ package }
 \seealso{
-~~ Optional links to other man pages, e.g. ~~
+    ~~ Optional links to other man pages, e.g. ~~
 ~~ \code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+    }
 \examples{
-~~ simple examples of the most important functions ~~
+    ~~ simple examples of the most important functions ~~
 }
