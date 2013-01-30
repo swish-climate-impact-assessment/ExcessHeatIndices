@@ -1,3 +1,4 @@
+
 \name{ExcessHeatIndices-package}
 \alias{ExcessHeatIndices-package}
 \alias{ExcessHeatIndices}

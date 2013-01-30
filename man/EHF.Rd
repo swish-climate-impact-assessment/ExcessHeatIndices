@@ -1,3 +1,4 @@
+
 \name{EHF}
 \alias{EHF}
 %- Also NEED an '\alias' for EACH other topic documented here.
@@ -59,7 +60,7 @@ EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_c_max_clim
 \examples{
 ##---- Should be DIRECTLY executable !! ----
 ##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
+##--    or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
 function (analyte = data_subset, exposurename = "air_temperature_in_degrees_c_max_climatezone_av", 

@@ -1,3 +1,4 @@
+
 ###############################################################################
  if (!require(Hmisc)) install.packages('Hmisc', repos='http://cran.csiro.au'); require(Hmisc)
  EHF <- function(analyte = data_subset,
@@ -18,10 +19,10 @@
   analyte <- arrange(analyte,  analyte[,datename])
   # lag0 is not needed
   for(lagi in 1:nlags){
- 	# lagi <- 1
- 	exposuresList <- c(exposuresList, gsub('lag0',paste('lag', lagi,sep=''), exposuresList[1]))
- 	analyte[,(ncol(analyte)+1)] <- Lag(analyte[,exposuresList[1]],lagi)
- 	}
+        # lagi <- 1
+        exposuresList <- c(exposuresList, gsub('lag0',paste('lag', lagi,sep=''), exposuresList[1]))
+        analyte[,(ncol(analyte)+1)] <- Lag(analyte[,exposuresList[1]],lagi)
+        }
   exposuresList <- exposuresList[-1]
   names(analyte) <- c(names(analyte[,1:(ncol(analyte)-nlags)]),exposuresList)
   # head(analyte)
@@ -91,13 +92,12 @@
   # analyte$EHFintegrated2 <- as.numeric(0)
   # for(j in 43034:43093){
   # # j = 43034
-	# analyte$EHFintegrated2[j] <- ifelse(analyte$EHF[j] < 0,0,
-	 # ifelse(analyte$EHF[j-1] >= 0,
-	 # analyte$EHF[j] + analyte$EHFintegrated2[j-1],
-	 # analyte$EHF[j])
-	 # )
-	# }
+        # analyte$EHFintegrated2[j] <- ifelse(analyte$EHF[j] < 0,0,
+         # ifelse(analyte$EHF[j-1] >= 0,
+         # analyte$EHF[j] + analyte$EHFintegrated2[j-1],
+         # analyte$EHF[j])
+         # )
+        # }
   
   return(analyte)
   }
- 
