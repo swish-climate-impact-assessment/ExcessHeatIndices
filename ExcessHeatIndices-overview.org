@@ -85,6 +85,11 @@ Maintainer: Who to complain to  ivan.hanigan@anu.edu.au
 
 ** EHF
 *** test
+#+name:test-EHF
+#+begin_src R :session *R* :tangle tests/test-EHF.r :exports none :eval no
+# first test
+#+end_src
+
 *** R
 #+name:EHF
 #+begin_src R :session *R* :tangle R/EHF.r :exports none :eval no
