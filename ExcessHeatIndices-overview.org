@@ -5,7 +5,9 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper]
 #+LATEX: \tableofcontents
 -----
-
+* TODO-list
+** TODO fix lags using zoo package, rollmean
+** TODO add apparent temperature
 * Introduction
 #+name:README.md
 #+begin_src markdown :tangle README.md :exports none :eval no
