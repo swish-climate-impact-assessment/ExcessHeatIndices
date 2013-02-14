@@ -1,7 +1,6 @@
 
 ###############################################################################
  if (!require(Hmisc)) install.packages('Hmisc', repos='http://cran.csiro.au'); require(Hmisc)
-if (!require(plyr)) install.packages('plyr', repos='http://cran.csiro.au'); require(plyr)
  EHF <- function(analyte = data_subset,
   exposurename = 'air_temperature_in_degrees_c_max_climatezone_av',
   datename = 'date',
