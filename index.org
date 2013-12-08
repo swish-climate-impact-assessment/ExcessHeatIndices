@@ -5,7 +5,7 @@
 #+LaTeX_CLASS_OPTIONS: [a4paper]
 #+LATEX: \tableofcontents
 -----
-* TODO-list
+* COMMENT TODO-list
 ** TODO fix lags using zoo package, rollmean
 ** TODO add apparent temperature
 * Introduction
@@ -297,7 +297,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
 
 #+end_src
 * CaseStudies
-** 2013-12-06-auto-download-bureau-meteorology-diurnal-data
+** COMMENT 2013-12-06-auto-download-bureau-meteorology-diurnal-data
 #+name:auto-download-bureau-meteorology-diurnal-data-header
 #+begin_src R :session *R* :tangle ~/projects/ivanhanigan.github.com.raw/_posts/2013-12-06-auto-download-bureau-meteorology-diurnal-data.md :exports none :eval no :padline no
   ---
@@ -734,7 +734,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
   
 #+end_src
 
-** DEPRECATED
+** COMMENT DEPRECATED
 #+name:auto-download-bureau-meteorology-diurnal-data-header
 #+begin_src R :session *R* :tangle no :exports none :eval no :padline no
   
@@ -868,14 +868,14 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
   - meaning duplicates will be frequent, need to write a script to de-duplicate
   - cheers!
 #+end_src
-** table-stations-code
+** COMMENT table-stations-code
 #+name:table-stations
 #+begin_src R :session *R* :tangle no :exports reports :eval yes
   #### name:table-stations ####
   read.csv("inst/doc/weather_stations.csv")
 #+end_src
 
-** auto-download-bureau-meteorology-diurnal-data
+** bom-downloads: auto-download-bureau-meteorology-diurnal-data
 
 - We;re looking at health impacts of high temperatures at work 
 - need to see the highest temperatures during the working hours
@@ -915,7 +915,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
 
 
 *** R Code: bom_download.r
-#+begin_src R :session *R* :tangle ~/bom-downloads/bom_download.r :exports reports :eval no
+#+begin_src R :session *R* :tangle ~/data/ExcessHeatIndices/inst/doc/bom_download.r :exports reports :eval no
 
     filename = "~/data/ExcessHeatIndices/inst/doc/weather_stations.csv"
     output_directory = "~/bom-downloads"
@@ -954,7 +954,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
   
 *** R Code: bom_collation.r
 
-#+begin_src R :session *R* :tangle ~/bom-downloads/bom_collation.r :exports reports :eval no
+#+begin_src R :session *R* :tangle ~/data/ExcessHeatIndices/inst/doc/bom_collation.r :exports reports :eval no
   
   # this takes data in directories from bom_download.r
    
@@ -1003,7 +1003,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
 *** BAT file (windoze)
 
 #+name:BAT
-#+begin_src R :session *R* :tangle no :exports reports :eval no
+#+begin_src R :session *R* :tangle ~/data/ExcessHeatIndices/inst/doc/bom_download.bat :exports reports :eval no
 "C:\Program Files\R\R-2.15.2\bin\Rscript.exe" "~\bom-downloads\bom_download.r"
 #+end_src
   
