@@ -1,9 +1,9 @@
 Package: ExcessHeatIndices
 Type: Package
-Title: What the package does (short line)
-Version: 1.0
-Date: 2013-01-30
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Title: Heatwave/heatstress indices
+Version: 1.1
+Date: 2017-09-01
+Author: Ivan Hanigan and James Goldie
+Maintainer: ivan.hanigan@gmail.com
+Description: Take a time series of weather obs and return heat stress indicators
+License: GPL (>=2)

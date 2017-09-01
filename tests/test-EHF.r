@@ -1,7 +1,7 @@
 
 # first test
 dir()
-source('./R/EHF.r')
+source('../R/EHF.r')
 require(swishdbtools)
 require(plyr)
 # access to ewedb is password restricted

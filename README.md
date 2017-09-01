@@ -2,9 +2,9 @@
 Excess Heat Indices     
 -------------------
 
-During 2011 I worked on a consultancy with Geoff Morgan at NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith Dear. In additional sensitivity analyses we also developed material related to a newly proposed heatwave metric called the Excess Heat Factor by John Nairn at the BoM.
+During 2011 I worked for Geoff Morgan (Geoff.Morgan@ncahs.health.nsw.gov.au) on a consultancy with NSW health to look at heatwaves, mortality and admissions. We use the percentiles of daily max temperature and apparent temperature in a similar way to the paper by Behnoosh Khalaj and Keith Dear. In additional sensitivity analyses we also developed material related to a newly proposed heatwave metric called the Excess Heat Factor by John Nairn at the BoM.
 
-In the GH-pages branch of this repository the file in the reports directory `EHIs_transformations_doc.Rnw` is an Sweave document which contains the complete text and R codes that you can execute and produce the PDF (also found in the reports directory).  The interested reader is encouraged to run the R codes to do the calculations and generate the graphs that get compiled into that pdf file.  These R codes are also held separately in the src directory and can be evaluated in the correct sequence using the go.r script if you prefer.  Please don't hesitate to send me queries or comments on the algorithms or other aspects of this work.
+The reports/EHIs_transformations_doc.Rnw file is an Sweave document which contains the complete text and R codes that you can execute and produce the PDF (also found in the reports directory).  The interested reader is encouraged to run the R codes to do the calculations and generate the graphs that get compiled into that pdf file.  These R codes are also held separately in the src directory and can be evaluated in the correct sequence using the go.r script if you prefer.  Please don't hesitate to send me queries or comments on the algorithms or other aspects of this work.
 
 Some Background
 ---------------
@@ -13,5 +13,4 @@ We were asked by our NSW health collaborators to investigate some heatwave indic
 
 John has worked with PriceWaterhouseCoopers to apply the heatwave in a recent report http://www.pwc.com.au/industry/government/assets/extreme-heat-events-nov11.pdf
 
-Ivan Hanigan (@ivanhanigan)
-2015-11-24
+Ivan Hanigan
