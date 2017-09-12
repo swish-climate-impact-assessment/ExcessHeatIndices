@@ -4,6 +4,6 @@ Title: Heatwave/heatstress indices
 Version: 1.1
 Date: 2017-09-01
 Author: Ivan Hanigan and James Goldie
-Maintainer: ivan.hanigan@gmail.com
+Maintainer: <ivan.hanigan@gmail.com>
 Description: Take a time series of weather obs and return heat stress indicators
 License: GPL (>=2)
