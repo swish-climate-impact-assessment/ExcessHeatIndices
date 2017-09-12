@@ -432,3 +432,16 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
 \keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
 
 #+end_src
+** COMMENT tapparent
+#+name:tapparent
+#+begin_src R :session *R* :tangle R/tapparent.R :exports none :eval no
+
+  # steadman 1994 (and BoM Ta + 0.33×e − 0.70×ws − 4.00)
+  tapparent <- function(dat, ta = "maxave", vprph = "vprph15", ws = 0){
+
+    dat$tappmax <- dat[,ta] + (0.33 * dat[,vprph]) - (0.70 * ws) - 4.00
+
+    return(dat)
+  }
+
+#+end_src
