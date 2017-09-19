@@ -445,8 +445,7 @@ output <- EHF(analyte = data_subset, exposurename = "air_temperature_in_degrees_
   }
 
 #+end_src
-** WBGT
-*** COMMENT wbgt_guillaume
+** COMMENT wbgt_guillaume
 
 #+begin_src R :session *R* :tangle R/wbgt_guillaume.R :exports none :eval no
 "
@@ -733,8 +732,8 @@ get_wbgt_values<-function(Ta,dewpoint,windspeed=1,solarrad=980,pressure=1001,ful
 	#Needs Ta,relhum,pressure,windspeed,solarrad,dewpoint
 	wbgt_outdoors_liljegren_bernard<-calc_wbgt_outdoors_liljegren_bernard(Ta,Tg,Tnwb)
 
-	#Needs Ta, windspeed, Tw, Tg
-	x=X(Ta,windspeed,Tw,Tg)
+	#Needs Ta, windspeed, Tw, Tg (TODO X is causing failure)
+	#x=X(Ta,windspeed,Tw,Tg)
 
 	if (full_excel_line){
 	return(data.frame(
@@ -809,4 +808,43 @@ swbgt <- function(ta, vprph){
 
   return(swbgt)
 }
+#+end_src
+** COMMENT dewpt
+#+name:dewpt
+#+begin_src R :session *R* :tangle R/dewpt.R :exports none :eval no
+'name:dewpt'
+# https://github.com/martinluther/meteo/blob/master/wunderground/meteo-wu-fmt.pl
+# orig formulas from http://www.usatoday.com/weather/whumcalc.htm
+#
+# returns a dewpoint given a temp (celsius) and relative humidity
+#
+# Logic: First, obtain the saturation vapor pressure(Es) using formula (5)
+# from air temperature Tc. 
+#
+# (5) Es=6.11*10.0**(7.5*Tc/(237.7+Tc)) 
+#
+# The next step is to use the saturation vapor pressure and the relative humidity
+# to compute the actual vapor pressure(E) of the air. This can be done with
+# the following formula. 
+#
+# (9) E=(RH*Es)/100 
+#
+# RH=relative humidity of air expressed as a percent.(i.e. 80%) 
+#
+# Now you are ready to use the following formula to obtain the
+# dewpoint temperature. 
+#
+# Note: ln( ) means to take the natural log of the variable in the parentheses 
+#
+# (10) Tdc=(-430.22+237.7*ln(E))/(-ln(E)+19.08) 
+#
+dewpt <- function(Tc, RH){
+
+  Es <- 6.11 * 10.0^(7.5 * Tc / (237.7 + Tc))
+  E <- (RH * Es) / 100
+  Tdc <- (-430.22 + 237.7 * log(E)) / (-log(E) +19.08)
+
+  return(Tdc)
+}    
+
 #+end_src

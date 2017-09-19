@@ -283,8 +283,8 @@ get_wbgt_values<-function(Ta,dewpoint,windspeed=1,solarrad=980,pressure=1001,ful
         #Needs Ta,relhum,pressure,windspeed,solarrad,dewpoint
         wbgt_outdoors_liljegren_bernard<-calc_wbgt_outdoors_liljegren_bernard(Ta,Tg,Tnwb)
 
-        #Needs Ta, windspeed, Tw, Tg
-        x=X(Ta,windspeed,Tw,Tg)
+        #Needs Ta, windspeed, Tw, Tg (TODO X is causing failure)
+        #x=X(Ta,windspeed,Tw,Tg)
 
         if (full_excel_line){
         return(data.frame(
