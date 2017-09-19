@@ -1,9 +1,9 @@
 Package: ExcessHeatIndices
 Type: Package
 Title: Heatwave/heatstress indices
-Version: 1.1
-Date: 2017-09-01
-Author: Ivan Hanigan and James Goldie
+Version: 1.1.1
+Date: 2017-09-19
+Author: Ivan Hanigan, James Goldie, Joseph Guillaume
 Maintainer: <ivan.hanigan@gmail.com>
 Description: Take a time series of weather obs and return heat stress indicators
 License: GPL (>=2)
