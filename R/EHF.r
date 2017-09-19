@@ -1,6 +1,6 @@
 
 EHF <- function(
-                ta
+                ta = foo$ta
                ,
                 t95 = NULL
                 ) {
@@ -20,7 +20,8 @@ EHF <- function(
  EHIaccl <- t3 - t30
  EHF <- EHIsig * pmax(1, EHIaccl)
 
-  analyte <- data.frame(EHIaccl, EHIsig, EHF)
+  index <- 1:length(ta)
+  analyte <- data.frame(index, EHIaccl, EHIsig, EHF)
 
   analyte <- na.omit(analyte)  
   # proposed integrations
@@ -64,7 +65,12 @@ EHF <- function(
          # analyte$EHF[j])
          # )
         # }
-  #head(analyte[680:nrow(analyte),], 50)  
+                                        #head(analyte[680:nrow(analyte),], 50)
+#    str(id)
+    id <- as.data.frame(index)
+#    str(analyte)
+  analyte <- merge(id, analyte, all.x = T, by = "index")
+#  head(analyte, 50)  
   return(analyte)
 
     
