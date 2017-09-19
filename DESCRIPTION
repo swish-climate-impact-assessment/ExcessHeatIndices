@@ -7,3 +7,5 @@ Author: Ivan Hanigan, James Goldie, Joseph Guillaume
 Maintainer: <ivan.hanigan@gmail.com>
 Description: Take a time series of weather obs and return heat stress indicators
 License: GPL (>=2)
+Imports:
+    zoo
