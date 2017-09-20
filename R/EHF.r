@@ -15,7 +15,7 @@
 
 
 EHF <- function(ta, t95 = NULL, forward = F) {
-if(forward)
+if(forward){
     t3 <- zoo::rollapply(ta, width = 3, FUN = mean, fill = NA, align = "left")
     t30 <- zoo::rollapplyr(
                     c(rep(NA, 1),ta[1:(length(ta)-1)])
