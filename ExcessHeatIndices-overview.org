@@ -106,34 +106,144 @@ Ivan Hanigan
   
 #+end_src
 
-*** R
+*** R/EHF
 #+name:EHF
 #+begin_src R :session *R* :tangle R/EHF.r :exports none :eval no
-# calculate daily excess heat factor (ehf)
-# arguments:
-#	ta: ideally of avg(tmax, tmin). Orig suggests same 0900-0900 period. No missings 
-#	t95: historical 95th percentile (optional, if missing this is computed). Orig suggests 1971-2000
-# returns daily ehf series
+  ## calculate daily excess heat factor (ehf)
+  ## arguments:
+  ## ta: ideally of avg(tmax, tmin). Orig suggests same 0900-0900 period. No missings 
+  ## t95: historical 95th percentile (optional, if missing this is computed). Orig suggests 1971-2000
+  ## forward: the day aggregatopms are sampled either 1) as a
+  ## foward-looking period (for the current day and following two days
+  ## (i.e., days i, i+1 and i+2), or 2) the retrospective view (i.e., days
+  ## i, i–1 and i–2). This is motivated by the intention to apply these
+  ## ideas in the context of a weather forecasting service looking
+  ## forward in time, but as Scalley points out a lag of at least three
+  ## days from the threshold event to the peak health effect would be
+  ## expected in the forward version.
+  ## returns daily ehf series
 
 
-EHF <- function(ta, t95 = NULL) {
+  EHF <- function(ta, t95 = NULL, forward = F) {
+  if(forward)
+      t3 <- zoo::rollapply(ta, width = 3, FUN = mean, fill = NA, align = "left")
+      t30 <- zoo::rollapplyr(
+                      c(rep(NA, 1),ta[1:(length(ta)-1)])
+                    , width = 30, FUN = mean, fill = NA)
 
-   t3 <- zoo::rollapplyr(ta, width = 3, FUN = mean, fill = NA)
-   t30 <- zoo::rollapplyr(zoo::lag(ta, 3), width = 30, FUN = mean, fill = NA)
-     
-   
-   # calculate the 95th centile?
-   if(is.null(t95)){
-      t95 <- quantile(ta, 0.95, na.rm = T)
-   }
-   # now calculate the EHI
-   EHIsig <- t3 - t95
-   EHIaccl <- t3 - t30
-   EHF <- EHIsig * pmax(1, EHIaccl)
-return(EHF)
-}
+  } else {
+      t3 <- zoo::rollapplyr(ta, width = 3, FUN = mean, fill = NA)
+      t30 <- zoo::rollapplyr(
+                    c(rep(NA, 3), ta[1:(length(ta)-3)])
+                    , width = 30, FUN = mean, fill = NA)
+      
+  }   
+  # calculate the 95th centile?
+  if(is.null(t95)){
+     t95 <- quantile(ta, 0.95, na.rm = T)
+  }
+  # now calculate the EHI
+  EHIsig <- t3 - t95
+  EHIaccl <- t3 - t30
+  EHF <- EHIsig * pmax(1, EHIaccl)
+  return(EHF)
+  }
 
 #+end_src
+*** QC backward
+>     head(data.frame(lag = 32-0:(length(ta)-1), ta =ta,  tal=c(rep(NA, 3), ta[1:(length(ta)-3)]),t3=t3, t30= t30), 34)
+   lag     ta    tal       t3      t30
+1   32 23.635     NA       NA       NA
+2   31 24.940     NA       NA       NA
+3   30 26.160     NA 24.91167       NA
+4   29 27.160 23.635 26.08667       NA
+5   28 26.910 24.940 26.74333       NA
+6   27 26.450 26.160 26.84000       NA
+7   26 26.940 27.160 26.76667       NA
+8   25 27.320 26.910 26.90333       NA
+9   24 31.990 26.450 28.75000       NA
+10  23 32.620 26.940 30.64333       NA
+11  22 29.525 27.320 31.37833       NA
+12  21 32.555 31.990 31.56667       NA
+13  20 30.310 32.620 30.79667       NA
+14  19 30.235 29.525 31.03333       NA
+15  18 33.540 32.555 31.36167       NA
+16  17 33.455 30.310 32.41000       NA
+17  16 35.390 30.235 34.12833       NA
+18  15 36.130 33.540 34.99167       NA
+19  14 34.900 33.455 35.47333       NA
+20  13 32.870 35.390 34.63333       NA
+21  12 30.880 36.130 32.88333       NA
+22  11 29.390 34.900 31.04667       NA
+23  10 29.505 32.870 29.92500       NA
+24   9 32.885 30.880 30.59333       NA
+25   8 32.145 29.390 31.51167       NA
+26   7 26.140 29.505 30.39000       NA
+27   6 19.655 32.885 25.98000       NA
+28   5 21.985 32.145 22.59333       NA
+29   4 22.920 26.140 21.52000       NA
+30   3 23.370 19.655 22.75833       NA
+31   2 24.660 21.985 23.65000       NA
+32   1 27.385 22.920 25.13833       NA
+33   0 32.135 23.370 28.06000 29.06367
+34  -1 33.550 24.660 31.02333 29.09783
+> mean(ta[1:30])
+[1] 29.06367
+> mean(ta[31:33])
+[1] 28.06
+> 
+*** QC forward
+
+#+begin_src R :session *R* :tangle no :exports none :eval no
+  'name:no'
+  head(data.frame(lag = 32-0:(length(ta)-1), ta =ta,
+                  tal=c(rep(NA, 1), ta[1:(length(ta)-1)]),
+                  t3=t3, t30= t30), 35)
+     lag     ta    tal       t3      t30
+  1   32 23.635     NA 24.91167       NA
+  2   31 24.940 23.635 26.08667       NA
+  3   30 26.160 24.940 26.74333       NA
+  4   29 27.160 26.160 26.84000       NA
+  5   28 26.910 27.160 26.76667       NA
+  6   27 26.450 26.910 26.90333       NA
+  7   26 26.940 26.450 28.75000       NA
+  8   25 27.320 26.940 30.64333       NA
+  9   24 31.990 27.320 31.37833       NA
+  10  23 32.620 31.990 31.56667       NA
+  11  22 29.525 32.620 30.79667       NA
+  12  21 32.555 29.525 31.03333       NA
+  13  20 30.310 32.555 31.36167       NA
+  14  19 30.235 30.310 32.41000       NA
+  15  18 33.540 30.235 34.12833       NA
+  16  17 33.455 33.540 34.99167       NA
+  17  16 35.390 33.455 35.47333       NA
+  18  15 36.130 35.390 34.63333       NA
+  19  14 34.900 36.130 32.88333       NA
+  20  13 32.870 34.900 31.04667       NA
+  21  12 30.880 32.870 29.92500       NA
+  22  11 29.390 30.880 30.59333       NA
+  23  10 29.505 29.390 31.51167       NA
+  24   9 32.885 29.505 30.39000       NA
+  25   8 32.145 32.885 25.98000       NA
+  26   7 26.140 32.145 22.59333       NA
+  27   6 19.655 26.140 21.52000       NA
+  28   5 21.985 19.655 22.75833       NA
+  29   4 22.920 21.985 23.65000       NA
+  30   3 23.370 22.920 25.13833       NA
+  31   2 24.660 23.370 28.06000 29.06367
+  32   1 27.385 24.660 31.02333 29.09783
+  33   0 32.135 27.385 31.44833 29.17933
+  34  -1 33.550 32.135 31.25500 29.37850
+  35  -2 28.660 33.550 30.85167 29.59150
+  > length(ta[3:32])
+  [1] 30
+  > mean(ta[3:32])
+  [1] 29.17933
+  > mean(ta[33:35])
+  [1] 31.44833
+  > 
+#+end_src
+
 *** COMMENT EHF_integration
 #+name:EHF_integration
 #+begin_src R :session *R* :tangle R/EHF_integration.R :exports none :eval no
