@@ -244,68 +244,87 @@ Ivan Hanigan
   > 
 #+end_src
 
-*** COMMENT EHF_integration
-#+name:EHF_integration
-#+begin_src R :session *R* :tangle R/EHF_integration.R :exports none :eval no
-EHF_integration <- function(EHF){
+*** COMMENT EHFduration
+#+begin_src R :session *R* :tangle R/EHFduration.R :exports none :eval no
 
-    index <- 1:length(ehf)
-    analyte <- data.frame(index, EHF)
+  EHFduration <- function(EHF){
+      # conditional cumulative count
+      index <- 1:length(EHF)
+      analyte <- data.frame(index, EHF)
 
-    analyte <- na.omit(analyte)  
-    # proposed integrations
-    # counts can be done quicker with this
-    x <- analyte$EHF >= 0
-    xx <- (cumsum(!x) + 1) * x 
-    x2<-(seq_along(x) - match(xx, xx) + 1) * x 
-    analyte$EHFcount <- x2
-
-    # alternately, slower but more interpretable
-    # analyte$EHIacclCount2<-as.numeric(0)
-    # # 
-    # which(analyte$dates == as.Date('2009-1-1'))
-    # which(analyte$dates == as.Date('2009-3-1'))
-    
-    # for(j in 43034:43093){
-    # # j=43034
-    # analyte$EHIacclCount2[j] <- ifelse(analyte$EHIaccl[j] < 0, 0,
-    # ifelse(analyte$EHIaccl[j-1] >= 0, 1 + analyte$EHIacclCount2[j-1],
-    # 1)
-    # )
-    # }
-      
-    # sums
-    EHFinverted  <- analyte$EHF * -1 
-    y <- ifelse(EHFinverted >= 0, 0, analyte$EHF)
-    f <- EHFinverted < 0
-    f <- (cumsum(!f) + 1) * f
-
-      
-    z <- unsplit(lapply(split(y,f),cumsum),f)
-    analyte$EHFintegrated <- z
-    
-    # alternately, slower but more interpretable
-    # analyte$EHFintegrated2 <- as.numeric(0)
-    # for(j in 43034:43093){
-    # # j = 43034
-          # analyte$EHFintegrated2[j] <- ifelse(analyte$EHF[j] < 0,0,
-           # ifelse(analyte$EHF[j-1] >= 0,
-           # analyte$EHF[j] + analyte$EHFintegrated2[j-1],
-           # analyte$EHF[j])
-           # )
-          # }
-                                          #head(analyte[680:nrow(analyte),], 50)
-  #    str(id)
+      analyte <- na.omit(analyte)  
+      # proposed integrations
+      # counts can be done quicker with this
+      x <- analyte$EHF >= 0
+      xx <- (cumsum(!x) + 1) * x 
+      x2<-(seq_along(x) - match(xx, xx) + 1) * x 
+      analyte$EHFduration <- x2
       id <- as.data.frame(index)
-  #    str(analyte)
-    analyte <- merge(id, analyte, all.x = T, by = "index")
-  #  head(analyte, 50)  
-    return(analyte)
+      # str(analyte)
+      analyte <- merge(id, analyte, all.x = T, by = "index")
+      # head(analyte, 50)  
+      return(analyte$EHFduration)
+  }
+
+      # alternately, slower but more interpretable
+      # analyte$EHIacclCount2<-as.numeric(0)
+      # # 
+      # which(analyte$dates == as.Date('2009-1-1'))
+      # which(analyte$dates == as.Date('2009-3-1'))
+      
+      # for(j in 43034:43093){
+      # # j=43034
+      # analyte$EHIacclCount2[j] <- ifelse(analyte$EHIaccl[j] < 0, 0,
+      # ifelse(analyte$EHIaccl[j-1] >= 0, 1 + analyte$EHIacclCount2[j-1],
+      # 1)
+      # )
+      # }
+#+end_src
+*** COMMENT EHFload
+#+begin_src R :session *R* :tangle R/EHFload.R :exports none :eval no
+  ## From Nairn and Fawcett 2013 CAWCR report: In the case of a heatwave
+  ## extending over more than one three-day period, we will define the
+  ## heat load of the event as the sum of the consecutive positive EHF
+  ## values. This definition has the benefit of simplicity, but it comes
+  ## at the slight cost of down-weighting the DMT contributions from the
+  ## first and last days of the multi-day (n > 3) period
+  EHFload <- function(EHF, EHFduration = NULL){
+      if(is.null(EHFduration)) stop("EHFload depends on EHFduration")
+      # conditional cumulitive sums
+      index <- 1:length(EHF)
+      analyte <- data.frame(index, EHF, EHFduration)
+      analyte <- na.omit(analyte)
+      which(analyte$EHFduration > 0)
+  #head(data.frame(analyte[1080:1420,]), 33)
+      EHFinverted  <- analyte$EHF * -1 
+      y <- ifelse(EHFinverted >= 0, 0, analyte$EHF)
+      f <- EHFinverted < 0
+      f <- (cumsum(!f) + 1) * f
+      z <- unsplit(lapply(split(y,f),cumsum),f)
+
+      analyte$EHFload <- z
+      id <- as.data.frame(index)
+      # str(analyte)
+      analyte <- merge(id, analyte, all.x = T, by = "index")
+      # head(analyte, 50)  
+      return(analyte$EHFload)
+      }
 
       
+      # alternately, slower but more interpretable
+      # analyte$EHFintegrated2 <- as.numeric(0)
+      # for(j in 43034:43093){
+      # # j = 43034
+            # analyte$EHFintegrated2[j] <- ifelse(analyte$EHF[j] < 0,0,
+             # ifelse(analyte$EHF[j-1] >= 0,
+             # analyte$EHF[j] + analyte$EHFintegrated2[j-1],
+             # analyte$EHF[j])
+             # )
+            # }
+                                            #head(analyte[680:nrow(analyte),], 50)
+    #    str(id)
 
-   }
-
+        
 
 #+end_src
 
